@@ -63,20 +63,9 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inderit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
-
     let persons = null;
+
+    let btnCLass = [classes.button];
 
     if(this.state.showPersons){
       persons = (
@@ -93,11 +82,8 @@ class App extends Component {
         </div>
       );
 
-      style.backgroundColor = 'red';
-      style[':hover']= {
-        backgroundColor: 'salmon',
-        color: 'black'
-      };
+      btnCLass.push(classes.Red);
+      
     }
 
     const assignedClasses = [];
@@ -116,7 +102,7 @@ class App extends Component {
           <h1>Hi, I am React File</h1>
           <p className={assignedClasses.join(' ')}>Hi There also</p>
           <button 
-            className={classes.button}
+            className={btnCLass.join(' ')}
             alt={this.state.showPersons}
             onClick={this.togglePersonsHandler}>
             Switch Name
