@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
+  const toggleBtnRef = useRef(null);
+
+  
+
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     setTimeout(() => {
@@ -12,6 +16,10 @@ const cockpit = (props) => {
       console.log('[Cockpit.js] useEffect CLEANUP');
     };
   }, []);
+
+  useEffect(() => {
+    toggleBtnRef.current.click();
+  },[]);
 
     const assignedClasses = [];
     let btnCLass = '';
@@ -34,10 +42,11 @@ const cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>Hi There also</p>
             <button 
+            ref={toggleBtnRef}
             className={btnCLass}
             alt={props.showPersons}
             onClick={props.clicked}>
-            Switch Name
+            Toggle Persons
             </button>
         </div>
         );
