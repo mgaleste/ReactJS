@@ -8,6 +8,12 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+    
+  }
+
   state = {
     persons: [
       {id: 'uno', name: 'Max', age: 28},
@@ -16,6 +22,15 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state){
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount(){
+    console.log('[App.js] Component Did Mount');
   }
 
   switchNameHandler = (newName) => {
@@ -65,6 +80,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     let persons = null;
 
     let btnCLass = [classes.button];
@@ -89,6 +105,7 @@ class App extends Component {
        
         <div className={classes.App}>
           <Cockpit
+            title={this.props.appTitle}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
             clicked={this.togglePersonsHandler}
