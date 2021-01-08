@@ -141,18 +141,19 @@ class App extends Component {
               value={{
                 authenticated: this.state.authenticated,
                 login: this.loginHandler
-              }} >
-          { this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            persons={this.state.persons}
-            clicked={this.togglePersonsHandler}
-            login={this.loginHandler}/>
-            ) 
-            : null
-          }
-          {persons}
+              }} 
+            >
+            { this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              persons={this.state.persons}
+              clicked={this.togglePersonsHandler}
+              />
+              ) 
+              : null
+            }
+            {persons}
           </AuthContext.Provider>
         </Aux>
        
