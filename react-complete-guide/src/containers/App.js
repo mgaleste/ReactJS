@@ -8,6 +8,8 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
 import Aux from '../hoc/Auxiliary';
 
+import AuthContext from '../context/auth-context';
+
 //import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
@@ -135,16 +137,23 @@ class App extends Component {
             this.setState({ showCockpit: false});
           }}>
             Remove Cockpit</button>
-          { this.state.showCockpit ? <Cockpit
+            <AuthContext.Provider 
+              value={{
+                authenticated: this.state.authenticated,
+                login: this.loginHandler
+              }} >
+          { this.state.showCockpit ? (
+          <Cockpit
             title={this.props.appTitle}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
             clicked={this.togglePersonsHandler}
-            login={this.loginHandler}/> 
+            login={this.loginHandler}/>
+            ) 
             : null
           }
           {persons}
-  
+          </AuthContext.Provider>
         </Aux>
        
      );
