@@ -3,7 +3,6 @@ import { Route, Link, Switch } from 'react-router-dom'
 // import axios from 'axios';
 import axios from '../../axios';
 
-import FullPost from './FullPost/FullPost';
 import NewPost from './NewPost/NewPost';
 import Posts from './Posts/Posts';
 import './Blog.css';
@@ -16,7 +15,7 @@ class Blog extends Component {
                 <header>
                         <nav>
                             <ul>
-                                <li><Link to="/">Home</Link></li>
+                                <li><Link to="/posts">Home</Link></li>
                                 <li><Link to={{
                                     pathname: '/new-post',
                                     hash: '#Submit',
@@ -30,9 +29,8 @@ class Blog extends Component {
                 <Route path="/new-post"  render={() =>(<h1>New Post</h1>)}/>
                 */ }
                 <Switch>
-                    <Route path="/" exact component={Posts}/>
                     <Route path="/new-post" exact component={NewPost}/>
-                    <Route path="/:id" exact component={FullPost}/>
+                    <Route path="/posts"  component={Posts}/>
                 </Switch>
                 
                 </div>
