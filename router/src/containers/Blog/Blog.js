@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 // import axios from 'axios';
 import axios from '../../axios';
 
@@ -22,15 +22,18 @@ class Blog extends Component {
                                     hash: '#Submit',
                                     search: '?quick=true'
                                 }}>New Post</Link></li>
+                                {/*this.props.match.url for relative paths + */ }
                             </ul>
                         </nav>
                 </header>
                 {/*<Route path="/"  exact render={() =>(<h1>HOME</h1>)}/>
                 <Route path="/new-post"  render={() =>(<h1>New Post</h1>)}/>
                 */ }
-                <Route path="/" exact component={Posts}/>
-                <Route path="/new-post" exact component={NewPost}/>
-                
+                <Switch>
+                    <Route path="/" exact component={Posts}/>
+                    <Route path="/new-post" exact component={NewPost}/>
+                    <Route path="/:id" exact component={FullPost}/>
+                </Switch>
                 
                 </div>
         );
