@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom'
+import { Route, Link, Switch, Redirect } from 'react-router-dom'
 // import axios from 'axios';
 import axios from '../../axios';
 
@@ -31,6 +31,8 @@ class Blog extends Component {
                 <Switch>
                     <Route path="/new-post" exact component={NewPost}/>
                     <Route path="/posts"  component={Posts}/>
+                    <Redirect from="/" to="/posts"/>
+                    {/*<Route path="/"  component={Posts}/>*/ }
                 </Switch>
                 
                 </div>
