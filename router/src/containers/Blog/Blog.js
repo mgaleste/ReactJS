@@ -3,11 +3,18 @@ import { Route, Link, Switch, Redirect } from 'react-router-dom'
 // import axios from 'axios';
 import axios from '../../axios';
 
-import NewPost from './NewPost/NewPost';
+//import NewPost from './NewPost/NewPost';
 import Posts from './Posts/Posts';
 import './Blog.css';
+import asyncComponent from '../../hoc/asyncComponent';
+const AsyncNewPost = asyncComponent(() => {
+    return import('./NewPost/NewPost');
+});
 
 class Blog extends Component {
+    state = {
+        auth: true
+    }
 
     render () {
             return (
@@ -29,9 +36,10 @@ class Blog extends Component {
                 <Route path="/new-post"  render={() =>(<h1>New Post</h1>)}/>
                 */ }
                 <Switch>
-                    <Route path="/new-post" exact component={NewPost}/>
+                    {this.state.auth ? <Route path="/new-post" exact component={AsyncNewPost}/> : null }
                     <Route path="/posts"  component={Posts}/>
-                    <Redirect from="/" to="/posts"/>
+                    {/*<Redirect from="/" to="/posts"/>*/ }
+                    <Route render={() => <h1>404 not found</h1>} />
                     {/*<Route path="/"  component={Posts}/>*/ }
                 </Switch>
                 
