@@ -75,11 +75,11 @@ export const fetchOrders = (token,userId) => {
                         id: key
                     })
                 }
-                console.log(res.data);
+                
                 dispatch(fetchOrdersSuccess(fetchedOrders));
             })
             .catch(err =>{
-                console.log(err);
+                
                 dispatch(fetchOrdersFail(err));
             })
     }

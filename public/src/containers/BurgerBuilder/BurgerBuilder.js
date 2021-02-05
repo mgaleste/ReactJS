@@ -25,8 +25,7 @@ class BurgerBuilder extends Component{
     }
 
     componentDidMount(){
-        console.log('[Burger Builder]');
-        // axios.get('ingredients.json')
+       // axios.get('ingredients.json')
         //     .then(response => {
         //         this.setState({ingredients: response.data});
         //     }).catch(error=> {
@@ -92,7 +91,6 @@ class BurgerBuilder extends Component{
     purchaseHandler = ()  => {
         if(this.props.isAuthenticated){
             this.setState({purchasing: true});
-            console.log('Purchase Clicked');
         }else{
             this.props.onSetAuthRedirectPath('/checkout')
             this.props.history.push("/auth");
@@ -101,7 +99,7 @@ class BurgerBuilder extends Component{
     
     purchaseCancelHandler = ()  => {
         this.setState({purchasing: false});
-        console.log('Cancel Clicked');
+        
     };
 
     purchaseContinueHandler = ()  => {
@@ -161,7 +159,6 @@ class BurgerBuilder extends Component{
         let burger = this.props.error ? <p>Ingredients Cannot Be Loaded</p>: <Spinner />
 
         if(this.props.ings){
-            console.log('[Burger Builder] Render');
             orderSummary= <OrderSummary
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler}

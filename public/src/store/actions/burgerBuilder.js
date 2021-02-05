@@ -29,7 +29,7 @@ export const fetchIngredientsFailed = () => {
 }
 
 export const initIngredients = () => {
-    console.log('[Burger Builder Action]')
+    
     return dispatch => {
         axios.get('ingredients.json')
             .then(response => {
