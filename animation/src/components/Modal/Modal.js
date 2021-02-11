@@ -18,12 +18,11 @@ const modal = (props) => {
         mountOnEnter
         unmountOnExit
         classNames={{
-           enter:
-           enterActive:
-           exit:
-           exitActive:
-           appear:
-           appearActive: 
+           enter: '',
+           enterActive: 'ModalOpen',
+           exit: '',
+           exitActive: 'ModalClose'
+           
         }} 
         >    
 

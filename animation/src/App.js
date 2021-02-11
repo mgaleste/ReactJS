@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>React Animations</h1>
-        <button 
+        <button className="Button"
         onClick={() => this.setState(prevState => ({showBlock: !prevState.showBlock}))}>Toggle</button> <br/>
         {/*{this.state.showBlock ?*/}
         <Transition 
