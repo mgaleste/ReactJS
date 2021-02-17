@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback, useReducer } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
+import ErrorModal from '../UI/ErrorModal';
 import Search from './Search';
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients ] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
-  useEffect(() => {
+  {/*useEffect(() => {
     fetch('https://react-hooks-update-d6edf-default-rtdb.firebaseio.com/ingredients.json')
     .then(response => response.json())
     .then(responseData =>{
@@ -21,7 +24,7 @@ const Ingredients = () => {
       }
       setUserIngredients(loadedIngredients);
     });
-  },[]);
+  },[]);*/}
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     setUserIngredients(filteredIngredients);
@@ -29,6 +32,7 @@ const Ingredients = () => {
   },[]);
 
   const addIngredientHandler = ingredient => {
+    setIsLoading(true);
     fetch('https://react-hooks-update-d6edf-default-rtdb.firebaseio.com/ingredients.json',{
       method: 'POST',
       body: JSON.stringify(ingredient),
@@ -36,22 +40,43 @@ const Ingredients = () => {
         'Content-Type' : 'application/json'
       }
     }).then(response => {
+      setIsLoading(false);
       return response.json();
     }).then(responseData =>{
       setUserIngredients(prevIngredients => [
         ...prevIngredients, 
         {id: responseData.name, ...ingredient}] );
+    }).catch(error => {
+      setError(error.message);
     });
     
   }
 
   const removeIngredientHandler = ingredientId => {
-    setUserIngredients(prevIngredients => prevIngredients.filter((ingredient) => ingredient.id !== ingredientId))
+    setIsLoading(true);
+    fetch(`https://react-hooks-update-d6edf-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`,{
+      method: 'DELETE'
+    }).then(response =>{
+      setIsLoading(false);
+      setUserIngredients(prevIngredients => 
+        prevIngredients.filter((ingredient) => ingredient.id !== ingredientId))
+    }).catch(error => {
+      setError(error.message);
+    });
+    
   };
+
+  const clearError = () => {
+    setIsLoading(false);
+    setError(null);
+  }
   
   return (
     <div className="App">
-      <IngredientForm onAddIngredient={addIngredientHandler}/>
+      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+      <IngredientForm 
+        onAddIngredient={addIngredientHandler}
+        loading={isLoading}/>
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler}/>
