@@ -61,7 +61,7 @@ const Ingredients = () => {
    dispatch({type: 'SET', ingredients: filteredIngredients});
   },[]);
 
-  const addIngredientHandler = ingredient => {
+  const addIngredientHandler = useCallback(ingredient => {
     dispatchHttp({type: 'SEND'});
     fetch('https://react-hooks-update-d6edf-default-rtdb.firebaseio.com/ingredients.json',{
       method: 'POST',
@@ -82,9 +82,9 @@ const Ingredients = () => {
       dispatchHttp({type: 'ERROR', errorMessage: error.message});
     });
     
-  }
+  },[]);
 
-  const removeIngredientHandler = ingredientId => {
+  const removeIngredientHandler = useCallback(ingredientId => {
     dispatchHttp({type: 'SEND'});
     fetch(`https://react-hooks-update-d6edf-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`,{
       method: 'DELETE'
@@ -98,7 +98,7 @@ const Ingredients = () => {
       dispatchHttp({type: 'ERROR', errorMessage: error.message});
     });
     
-  };
+  },[]);
 
   const clearError = () => {
     //setIsLoading(false);
