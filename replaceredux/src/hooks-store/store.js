@@ -10,10 +10,10 @@ export const useStore = () => {
 
     const dispatch = (actionIdentifier, payload) => {
         const newState = actions[actionIdentifier](globalState, payload);
-        globalState = {...globalState, newState};
+        globalState = {...globalState, ...newState};
 
-        for (const listeners of listeners){
-            listeners(globalState);
+        for (const listener of listeners){
+            listener(globalState);
         }
     }
 
@@ -30,7 +30,7 @@ export const useStore = () => {
 
 export const initStore = (userActions, initialState) => {
     if(initialState){
-        globalStyate = {...globalState,...initialState}
+        globalState = {...globalState,...initialState}
     }
     actions = {...actions,...userActions};
 }
